@@ -1,7 +1,7 @@
 {
   "rewrites": [
     {
-      "source": "/rpro/users/:path*",
+      "source": "/:path*",
       "destination": "/:path*"
     }
   ]
