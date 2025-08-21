@@ -136,6 +136,7 @@ function App() {
           <Route path="/roibonus" element={<RoiBonus />} />
           <Route path="/rankbonus" element={<MileStoneBonus />} />
           {/* <Route path="/dailypassivebonus" element={<DailyPassiveBonus />} /> */}
+          {/* <Route path="/dailypassivebonus" element={<DailyPassiveBonus />} /> */}
           <Route path="/transactions" element={<Transaction />} />
           <Route path="/withdrawal" element={<Withdrawal />} />
           <Route path="/history" element={<History />} />

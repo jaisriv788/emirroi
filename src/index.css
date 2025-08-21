@@ -1,4 +1,5 @@
 @import "tailwindcss";
+/*daisyui plugin*/
 @plugin "daisyui";
 
 /* Target the scrollable container */
