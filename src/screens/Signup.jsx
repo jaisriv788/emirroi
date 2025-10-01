@@ -525,14 +525,14 @@ export default function Signup({ toggleModel, getDetails }) {
                 />{" "}
                 I accept the{" "}
                 <span
-                  onClick={() => navigate("/terms")}
+                  // onClick={() => navigate("/terms")}
                   className="text-blue-900 cursor-pointer"
                 >
                   Terms
                 </span>{" "}
                 of Service and{" "}
                 <span
-                  onClick={() => navigate("/terms")}
+                  // onClick={() => navigate("/terms")}
                   className="text-blue-900 cursor-pointer"
                 >
                   Privacy Policy

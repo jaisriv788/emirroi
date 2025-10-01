@@ -120,7 +120,7 @@ function App() {
           element={<Signup getDetails={getDetails} toggleModel={toggleModel} />}
         />
         <Route path="/faq" element={<Faq />} />
-        <Route path="/terms" element={<Terms />} />
+        {/* <Route path="/terms" element={<Terms />} /> */}
 
         {/*These are the routes to the sidebar*/}
         <Route element={<ProtectedLayout />}>

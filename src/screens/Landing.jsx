@@ -164,12 +164,12 @@ export default function Landing() {
               >
                 FAQ
               </button>
-              <button
+              {/* <button
                 onClick={() => navigate("/terms")}
                 className="text-gray-700 cursor-pointer hover:text-gray-900 transition-colors"
               >
                 Terms
-              </button>
+              </button> */}
               <a
                 onClick={() => navigate("/signin")}
                 className="text-gray-700 cursor-pointer hover:text-gray-900 transition-colors"
@@ -370,15 +370,9 @@ export default function Landing() {
               users
             </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-6">
+          {/* <div className="flex justify-center"> */}
+          <div className="flex md:flex-nowrap flex-wrap gap-6">
             {[
-              {
-                name: "Ameen R.",
-                location: "Dubai",
-                initial: "A",
-                testimonial:
-                  "This platform gave me true financial freedom. From $100 to $5000+ in 6 months. Unbelievable!",
-              },
               {
                 name: "Zara F.",
                 location: "Abu Dhabi",
@@ -431,6 +425,7 @@ export default function Landing() {
               </div>
             ))}
           </div>
+          {/* </div> */}
         </div>
       </section>
       {/* Footer */}
@@ -448,28 +443,32 @@ export default function Landing() {
             </div>
             <div className="flex space-x-6">
               <button
+                disabled
                 onClick={() => smoothScroll("hero")}
                 className="hover:text-gray-300 cursor-pointer transition-colors"
               >
-                Home
+                #Home
               </button>
               <button
+                disabled
                 onClick={() => smoothScroll("testimonials")}
                 className="hover:text-gray-300 cursor-pointer transition-colors"
               >
-                Testimonials
+                #Testimonials
               </button>
               <button
+                disabled
                 onClick={() => navigate("/faq")}
                 className="hover:text-gray-300 cursor-pointer transition-colors"
               >
-                FAQ
+                #FAQ
               </button>
               <button
+                disabled
                 onClick={() => navigate("/terms")}
                 className="hover:text-gray-300 cursor-pointer transition-colors"
               >
-                Terms
+                #Terms
               </button>
             </div>
           </div>
