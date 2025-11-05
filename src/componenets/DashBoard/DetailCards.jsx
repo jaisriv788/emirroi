@@ -58,11 +58,18 @@ function DetailCards({ user, binary, wallet }) {
     },
     {
       name: "Total Earning",
-      value: `$ ${
-        isNaN(parseFloat(wallet.total_earning).toFixed(2))
-          ? "0.00"
-          : parseFloat(wallet.total_earning).toFixed(2)
-      }`,
+      value: `$ ${isNaN(parseFloat(wallet.total_earning).toFixed(2))
+        ? "0.00"
+        : parseFloat(wallet.total_earning).toFixed(2)
+        }`,
+      col: "border-[#6d9c56]",
+    },
+    {
+      name: "Emir Future Wallet",
+      value: `$ ${isNaN(parseFloat(wallet.total_earning).toFixed(2))
+        ? "0.00"
+        : parseFloat(wallet.total_earning).toFixed(2)
+        }`,
       col: "border-[#6d9c56]",
     },
     // {
@@ -83,9 +90,8 @@ function DetailCards({ user, binary, wallet }) {
               {item.name}
             </div>
             <div
-              className={`px-6 py-5 ${
-                item.text ? "text-sm font-semibold" : "text-2xl font-bold"
-              } `}
+              className={`px-6 py-5 ${item.text ? "text-sm font-semibold" : "text-2xl font-bold"
+                } `}
             >
               {item.value}
             </div>
