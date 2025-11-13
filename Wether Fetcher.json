@@ -1,0 +1,229 @@
+{
+  "name": "Wether Fetcher",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "https://api.open-meteo.com/v1/forecast?latitude=26.85&longitude=80.95&daily=temperature_2m_max,temperature_2m_min",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [176, 0],
+      "id": "c14a7c99-c6d3-4bf6-b5bc-a7c0b2fd1126",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "beb86536-e1dc-4ccf-876c-1ba939b727e1",
+              "leftValue": "={{ $json.daily.temperature_2m_max[0] }}",
+              "rightValue": 24,
+              "operator": {
+                "type": "number",
+                "operation": "lt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [384, 0],
+      "id": "23c89fe0-1e61-4e1d-a553-03cd51b7d6d6",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "831a2138-d392-49d2-8b7b-e3f60f901e16",
+              "name": "message",
+              "value": "=Lucnow Temperature is {{ $json.daily.temperature_2m_max[0] }}deg C. Its Hot outside. ",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [608, -160],
+      "id": "57c790ef-c2e3-49c8-af76-ca89a5e5936e",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "fb8ab167-a9b6-4f9f-a993-09e366613baa",
+              "name": "message",
+              "value": "=Lucnow Temperature is {{ $json.daily.temperature_2m_max[0] }}deg C. Its Cold outside. ",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [592, 96],
+      "id": "95150da2-e779-4a70-901b-864c5a157626",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "sendTo": "jaisriv.dsv@gmail.com",
+        "subject": "Today's Weather Forecast",
+        "message": "=<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\" />\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\" />\n<title>Weather update — Lucknow</title>\n<style>\n  /* Basic inline-safe styles for email clients */\n  body { margin:0; padding:0; background:#f4f6f8; font-family:Arial, Helvetica, sans-serif; }\n  .container { width:100%; max-width:600px; margin:24px auto; background:#ffffff; border-radius:8px; overflow:hidden; box-shadow:0 6px 18px rgba(0,0,0,0.06); }\n  .header { background:linear-gradient(90deg,#4f46e5,#10b981); padding:20px; color:#fff; text-align:left; }\n  .logo { font-weight:700; font-size:20px; letter-spacing:0.4px; }\n  .hero { padding:28px 24px 18px; text-align:center; }\n  .temp { font-size:48px; font-weight:700; color:#111827; margin:6px 0 4px; }\n  .unit { font-size:18px; font-weight:600; color:#6b7280; margin-left:6px; }\n  .desc { color:#374151; margin:8px 0 16px; font-size:15px; }\n  .badge { display:inline-block; padding:6px 10px; background:#ffedd5; color:#b45309; border-radius:999px; font-weight:700; font-size:13px; }\n  .details { padding:16px 24px; border-top:1px solid #f3f4f6; color:#6b7280; font-size:13px; }\n  .cta { display:block; margin:18px auto 28px; text-align:center; }\n  .btn { background:#111827; color:#fff; text-decoration:none; padding:12px 18px; border-radius:8px; display:inline-block; font-weight:600; }\n  .footer { padding:16px 24px; font-size:12px; color:#9ca3af; text-align:center; background:#fafafa; }\n  @media (max-width:420px){ .temp{font-size:36px} .hero{padding:20px} }\n</style>\n</head>\n<body>\n  <div class=\"container\" role=\"article\" aria-label=\"Lucknow Weather\">\n    <div class=\"header\">\n      <div class=\"logo\">EmirROI • Weather Alert</div>\n    </div>\n\n    <div class=\"hero\">\n      <div style=\"font-size:14px;color:#6b7280;\">Daily weather update — Lucknow</div>\n\n      <div style=\"margin-top:12px;\">\n        <span class=\"temp\">{{ $json.message }}</span>\n        <span class=\"unit\">°C</span>\n      </div>\n\n      <div class=\"desc\">\n        Today’s Lucknow temperature is <strong>{{ $json.message }}°C</strong>.\n        <span class=\"badge\">Hot</span>\n      </div>\n\n      <div class=\"cta\">\n        <a class=\"btn\" href=\"https://www.open-meteo.com/\" target=\"_blank\" rel=\"noreferrer\">View full forecast</a>\n      </div>\n    </div>\n\n    <div class=\"details\">\n      <div><strong>Min / Max (today):</strong> {{ $json.message }}°C / {{ $json.message }}}°C</div>\n      <div style=\"margin-top:6px;\"><strong>Timezone:</strong>IST</div>\n      <div style=\"margin-top:6px;\">This message is automated — data from your weather provider.</div>\n    </div>\n\n    <div class=\"footer\">\n      You are receiving this email because you subscribed to daily weather alerts.<br/>\n      EmirROI • Built on trust & transparency\n    </div>\n  </div>\n</body>\n</html>",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [896, -32],
+      "id": "b1b408a0-d633-4940-bd50-f162ae06c23f",
+      "name": "Send a message",
+      "webhookId": "0d585c03-3a72-45bd-81f4-2c376a0d6d5b",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "ISWuDYiVPH7Q4qHJ",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "seconds",
+              "secondsInterval": 2
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [-32, 0],
+      "id": "824d8aa5-5270-4067-ab02-5be3325d50d4",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "test/weather",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [-32, 176],
+      "id": "055e4f36-67e9-42d4-a391-0d70ea4a1025",
+      "name": "Webhook",
+      "webhookId": "1dfcf4ed-2b37-462c-b6ab-df8cb93088ff"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Asia/Kolkata",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "executionTimeout": -1
+  },
+  "versionId": "aeae1693-3006-42a3-a9a1-1d63b23486be",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "48c34db334f359779be2ae260cb2a72c91484244c61be32c3add0ad08c6c9e40"
+  },
+  "id": "FbbZX7hvxPcKgpO2",
+  "tags": []
+}
