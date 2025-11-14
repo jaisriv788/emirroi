@@ -7,3 +7,4 @@ export default defineConfig({
   // base: "/testing/emorroi/frontend/",
   plugins: [react(), tailwindcss()],
 });
+////AIzaSyB771945NGhKq2WuX7eyrGWLoptZNxmDMY
